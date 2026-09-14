@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to this backend template!
+Thank you for your interest in contributing to the herdr backend!
 
 ## Development Setup
 
@@ -64,11 +64,13 @@ The nightly build is downloaded from the [nix-community binary cache](https://ni
 cache configured, Nix compiles Neovim from source. CI runs `nix flake update neovim-nightly-overlay` first to test the
 latest nightly.
 
+The tests stub `vim.system` and never run herdr, so they are safe to run from inside a herdr session.
+
 ## Implementation Guidelines
 
 ### Backend Protocol
 
-Your backend must implement the v3 protocol:
+The backend implements the smart-splits v3 protocol:
 
 ```lua
 ---@class SmartSplitsBackend
@@ -80,23 +82,15 @@ Your backend must implement the v3 protocol:
 ---@field health? fun()
 ```
 
+All herdr CLI calls go through `lua/smart-splits-backend-herdr/herdr.lua`, which never throws and returns `nil` or
+`false` when herdr fails.
+
 ### Type Annotations
 
 Use LuaCATS type annotations extensively. All functions should have:
 - Parameter types with `@param`
 - Return types with `@return`
 - Class definitions with `@class` and `@field`
-
-Example:
-
-```lua
----@param direction SmartSplitsDirection
----@param opts? SmartSplitsBackendMoveOpts
----@return boolean
-function M.move(direction, opts)
-  -- implementation
-end
-```
 
 ### Testing
 
@@ -123,7 +117,3 @@ These are enforced by Stylua, yamlfmt, prettier, tombi, actionlint, and statix.
 3. Make your changes
 4. Run `just check` to ensure all checks pass
 5. Submit a pull request
-
-## Questions?
-
-Open an issue if you have questions about implementing a backend.

@@ -1,20 +1,20 @@
----@class TemplateBackend.Config
+---@class HerdrBackend.Config
 ---@field enable boolean
 
----@alias TemplateBackend.PartialConfig { enable?: boolean }
+---@alias HerdrBackend.PartialConfig { enable?: boolean }
 
 local M = {}
 
----@type TemplateBackend.Config
+---@type HerdrBackend.Config
 M.defaults = {
   enable = true,
 }
 
----@type TemplateBackend.Config
+---@type HerdrBackend.Config
 M.options = vim.deepcopy(M.defaults)
 
----@param opts? TemplateBackend.PartialConfig
----@return TemplateBackend.Config
+---@param opts? HerdrBackend.PartialConfig
+---@return HerdrBackend.Config
 function M.setup(opts)
   opts = opts or {}
   M.options = vim.tbl_deep_extend('force', M.defaults, opts)
