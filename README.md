@@ -33,6 +33,16 @@ not just from inside Neovim.
 }
 ```
 
+Outside a herdr session the backend does not detect, and core warns that none of the configured backends detected. Set
+`mux.warn_if_unusable = false` to silence it, or only name the backend when herdr is present, so core has nothing
+configured to warn about:
+
+```lua
+mux = {
+  backend = vim.env.HERDR_ENV and 'smart-splits-backend-herdr' or nil,
+},
+```
+
 Map the keys in Neovim as usual:
 
 ```lua
@@ -173,12 +183,17 @@ export SMART_SPLITS_HERDR_PASSTHROUGH_RE='^(lazygit|k9s|vi-sql)$'
 │   ├── config.lua        # Configuration
 │   ├── herdr.lua         # herdr CLI wrapper
 │   ├── move.lua          # Navigation
-│   ├── resize.lua        # Resizing
-│   └── health.lua        # Health check
-└── tests/
-    ├── init.lua          # Test initialization
-    ├── helpers.lua       # Test utilities
-    └── core/             # Test specifications
+│   ├── resize.lua        # Resize logic
+│   └── health.lua        # Health check implementation
+├── tests/
+│   ├── init.lua          # Test initialization
+│   ├── helpers.lua       # Test utilities
+│   └── core/             # Test specifications
+├── justfile              # Command runner
+├── .busted               # Busted configuration
+├── selene.toml           # Selene configuration
+├── .luarc.json           # LuaLS configuration
+└── .stylua.toml          # Stylua configuration
 ```
 
 ## License
