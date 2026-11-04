@@ -92,7 +92,13 @@ the pane boundary) or moves herdr focus directly. When the pane is already at an
 neighbor), the key is forwarded back to the running app so shell defaults like `<C-l>` (clear screen) and `<C-h>`
 (backspace) keep working.
 
-Link the plugin, replacing the path with where your plugin manager cloned this repo:
+Install the plugin from GitHub (update later with `herdr plugin update`):
+
+```bash
+herdr plugin install NWVi/smart-splits-backend-herdr
+```
+
+For local development, link a checkout instead:
 
 ```bash
 herdr plugin link /path/to/smart-splits-backend-herdr
